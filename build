@@ -1,0 +1,39 @@
+#! /bin/bash
+
+SCRIPT=$(readlink -f $BASH_SOURCE)
+SCRIPT_DIR=$(dirname $SCRIPT)
+
+TEX_FILE="$1"
+
+if [ "$1" == "" ]; then
+    echo "No input file provided. Exiting"
+    exit 1
+fi
+if [ ! -f "$TEX_FILE" ]; then
+    echo "File not found. Exiting"
+    exit 1
+fi
+
+checkAndRemove() {
+    files=$(ls *.$1 2> /dev/null)
+    if [[ "$files" != "" ]]; then
+        rm "$files"
+    fi
+}
+
+echo "Attempting to build the source Tex file"
+res=$(xelatex $TEX_FILE | grep "Output written on")
+if [[ "$res" != "" ]]; then
+    echo "$res"
+fi
+echo "Completed build"
+
+if [[ "$2" == "retainlogs" ]]; then
+    echo "Retaining output files"
+else
+    echo "Cleaning up output files"
+    checkAndRemove "log"
+    checkAndRemove "gz"
+    checkAndRemove "aux"
+    checkAndRemove "out"
+fi
