@@ -1,0 +1,205 @@
+% For some odd reason, LaTeX warns that the global option for font size
+% is unused. Need to debug this
+% Wednesday 07 March 2018 02:01:02 AM IST
+\documentclass{letter}
+
+% Using the geometry package to set the margin, orientation, and the
+% paper dimensions. Update according to you requirements
+\usepackage[a4paper, portrait, margin=1in]{geometry}
+
+% Using the fontspec package to set the document main font.
+% I tend to use a system-wide available sans-serif font. Whichever
+% sails your boat, works here.
+% After a handful of experiments, I stuck to using Gentium Book Basic.
+% The font sizes used in the custom commands reflect the sizes that
+% seem good for me at 100% on an Ubuntu box at 1920x1080, with evince
+% Play around with your specifics to arrive at your personal choice.
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Gentium Book Basic}
+
+% \usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% Without the hyperref package and the hidelinks directive, LaTeX adds
+% rather ugly borders around the links in the document.
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdfproducer=XeLaTeX,%
+            pdfauthor={YourName},%
+            pdftitle={YourTitle},%
+            pdfsubject={YourSubject},%
+            pdfkeywords={YourKeywords},
+            pdfcreator=XeLaTeX
+}
+
+% Set the line height at 1.5
+\renewcommand{\baselinestretch}{1.5}
+
+% Add custom commands for the document
+
+\newcommand{\smallTxt}[1] {
+  \begin{small}#1\end{small}
+}
+
+\newcommand{\normalTxt}[1] {
+  \begin{normalsize}#1\end{normalsize}
+}
+
+\newcommand{\largeTxt}[1] {
+  \begin{large}#1\end{large}
+}
+
+% Sort of, minor components?
+\newcommand{\titledLink}[2] {
+    \href{#1}{#2}
+}
+
+% Your headline - a short note on your expertise/role
+\newcommand{\headline}[1] {
+    \begin{center}\sized{13pt}{#1}\\[40pt]\end{center}
+}
+
+% Convenience wrapper since I tend to at times forget \textbf
+\newcommand{\bold}[1] {
+    \textbf{#1}
+}
+
+% sized takes in two arguments - a font size and the text to render
+% Renders the text taken in, in the requested font size.
+\newcommand{\sized}[2] {
+    \fontsize{#1}{#1}\selectfont{#2}
+}
+
+% Component for your work experience title/organisation.
+\newcommand{\experienceRole}[1] {
+    \sized{13.5pt}{\bold{\noindent#1}}
+}
+
+% Component for your work experience duration/period.
+\newcommand{\experienceDuration}[1] {
+    % Use hfill to push the duration text to the right end of the line
+    \hfill\sized{12.5pt}{#1}\\[10pt]
+}
+
+\newcommand{\experience}[3] {
+    % Use a flushleft to left align the role and duration in a single
+    % line. This is a bit buggy. The noindent somehow does not work here
+    % and a minor indentation seems to be introduced. Needs a fix
+    % Wednesday 07 March 2018 02:06:13 AM IST
+
+    % The component itself renders thus
+    % <Title/Position/Organisation>        <Duration/Period>
+    % <Description/role/work done while in the position>
+    \begin{flushleft}
+        \experienceRole{#1}\experienceDuration{#2}
+    \end{flushleft}
+    #3
+}
+
+\newcommand{\experienceLine}[1] {
+    % Individual paragraphs within each experience to use this directive
+    % Sets a 12.5pt size for the lines. Any further aestheic changes
+    % to be added according to environment.
+    \fontsize{12pt}{12pt}\selectfont
+    #1
+}
+
+\newcommand{\userLink}[2] {
+    \titledLink{#1}{\sized{14pt}{#2}}
+}
+
+\newcommand{\userLinkSmaller}[2] {
+    \titledLink{#1}{\sized{12pt}{#2}}
+}
+
+\newcommand{\schools}[1] {
+    \vspace{15pt}#1
+}
+
+\newcommand{\school}[2] {
+    \begin{flushright}
+        \textbf{\sized{13pt}{#1}}\\#2
+    \end{flushright}
+}
+
+
+\begin{document}
+
+% Title/links block - A large name block, oneline breadcrumb links block, email block, and a final phone number block.
+
+\begin{center}\textbf{\sized{18pt}{Resume Owner}}\\[7.5pt]
+
+% Keep web links stuck to a single line in a breadcrumb format
+% Homepage | LinkedIn | Portfolio/Dribble/Github sounds good here.
+% TODO: Generate a usable component out of this structure
+\userLink{https://home}{Home} |
+\userLink{https://linkedin}{LinkedIn} |
+\userLink{https://github}{Github}
+\\[2.5pt]
+
+% I've come to use a subject hard-coded email here. For one, it makes sure
+% there is a particular focus on the context I send this resume over for.
+% Extending on, is a good thing from the receiver's shoes, the effort.
+\userLinkSmaller{
+    mailto:email@email.com
+}{
+    email@email.com
+}\\[2.5pt]
+% \href{mailto:sriram.velamur@gmail.com?subject=Re: Your application to}{sriram.velamur@gmail.com}\\[2.5pt]
+
+% Phone number block - Stick to a single phone number that you are available at, not multiple ones here.
+\sized{12pt}{Phone}
+\end{center}
+
+% Draws a line of 1pt thickness spanning the width of the page text
+\noindent\rule{\textwidth}{1pt}
+
+% Opening line - Keep crisp and encompassing all experience.
+\headline{
+  Headline - Introduce yourself here
+}
+
+\experience{
+  Role / Organisation
+} {
+  Role duration
+} {
+    \experienceLine {
+        Something you did while being at this organisation/the role.
+    }
+
+    \experienceLine {
+        Some more changes you brought in, while building things here.
+    }
+
+}
+
+\experience{
+  Role / Organisation
+} {
+  Role duration
+} {
+    \experienceLine {
+        Something you did while being at this organisation/the role.
+    }
+
+    \experienceLine {
+        Things you learnt while picking things up for work here.
+    }
+
+}
+
+\schools {
+    \school {
+        Program you went to
+    } {
+        School name - Graduation date/duration
+    }
+
+    \school {
+        Any other program you went to
+    } {
+        School name - Graduation date/duration
+    }
+}
+
+\end{document}
