@@ -53,6 +53,16 @@
     \href{#1}{#2}
 }
 
+% Component to add an email address with a subject added. Ensures proper
+% thought is put into the communication and there is a context in mind.
+\newcommand{\emailWithSubject}[2] {
+    \titledLink{
+        mailto:#2?subject=#1
+    } {
+        \sized{12pt}{#2}
+    }
+}
+
 % Your headline - a short note on your expertise/role
 \newcommand{\headline}[1] {
     \begin{center}\sized{13pt}{#1}\\[40pt]\end{center}
@@ -139,12 +149,7 @@
 % I've come to use a subject hard-coded email here. For one, it makes sure
 % there is a particular focus on the context I send this resume over for.
 % Extending on, is a good thing from the receiver's shoes, the effort.
-\userLinkSmaller{
-    mailto:email@email.com
-}{
-    email@email.com
-}\\[2.5pt]
-% \href{mailto:sriram.velamur@gmail.com?subject=Re: Your application to}{sriram.velamur@gmail.com}\\[2.5pt]
+\emailWithSubject {Re: Communication subject} {user@email.com}
 
 % Phone number block - Stick to a single phone number that you are available at, not multiple ones here.
 \sized{12pt}{Phone}
