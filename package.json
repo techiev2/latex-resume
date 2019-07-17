@@ -1,0 +1,23 @@
+{
+  "name": "latex-resume",
+  "version": "1.0.0",
+  "description": "A cleaned up LaTeX based resume generation repository for personal use. Provides a simple sample resume template and a XeLaTeX based build shell script. The template is built by abstracting sections into smaller components with the use of custom TeX commands.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techiev2/latex-resume.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/techiev2/latex-resume/issues"
+  },
+  "homepage": "https://github.com/techiev2/latex-resume#readme",
+  "dependencies": {
+    "@techiev2/node_http_server": "^1.0.12"
+  }
+}
