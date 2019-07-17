@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LaTeX resume</title>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">LaTeX resume</div>
+    <div class="content-wrapper">
+      <div class="editor-wrapper">
+        <textarea placeholder="" name="composer" id="composer" cols="30" rows="10" class="composer">{{template}}</textarea>
+        <button class="button success" id="generate">Generate</button>
+      </div>
+      <div class="embed-preview">
+        <embed id="generatedPDF" type="application/pdf" />
+      </div>
+    </div>
+  </div>
+  <link rel="stylesheet" type="text/css" href="/css/app.css" />
+  <style type="text/css">
+    .container {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: minmax(3em, 0.75fr) 9.25fr;
+      grid-row-gap: 1em;
+    }
+    .topbar {
+      box-shadow: 1px 0 3px #333;
+      display: grid;
+      align-items: center;
+      text-align: center;
+    }
+    .content-wrapper {
+      padding: 1em;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+    }
+    .editor-wrapper:not(:empty) {
+      border-right: 1px solid #666;
+    }
+    .composer {
+      width: 98%;
+      height: 88%;
+      border: none;
+      font-size: 1.3rem;
+    }
+    #generate {
+      margin: 1em;
+      float: right;
+    }
+    #generatedPDF {
+      width: 100%;
+      height: 95%;
+    }
+  </style>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', onLoad);
+    function onLoad() {
+      let { origin, port } = location;
+      let apiBase = `${origin}/api`;
+      function dispatchGeneration(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        generatePDFFromContent();
+      }
+      generate.addEventListener('click', dispatchGeneration);
+      function generatePDFFromContent() {
+        let content = composer.value.trim();
+        if (!content) {
+          alert('No content');
+          composer.focus();
+          return;
+        }
+        let options = {
+          method: 'POST',
+          body: JSON.stringify({ content })
+        };
+        fetch(`${apiBase}/generate`, options)
+          .then(res => res.json())
+          .then(data => data.data ? data.data : data)
+          .then(response => {
+            generatedPDF.setAttribute('src', response.response);
+          })
+          .catch(console.error)
+      }
+    }
+  </script>
+</body>
+</html>

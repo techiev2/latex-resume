@@ -1,0 +1,30 @@
+html, body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  border: 0;
+  font-size: 1rem;
+}
+button { cursor: pointer; }
+button, input, textarea, select { outline: none; }
+button.button {
+  background: transparent;
+  height: 2.5em;
+  min-height: 2.5em;
+  width: 10em;
+  min-width: 100px;
+  border: 1px solid #555;
+  border-radius: 3px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #777;
+}
+button.button.success {
+  background: rgb(30, 130, 20);
+  color: #fff;
+}
