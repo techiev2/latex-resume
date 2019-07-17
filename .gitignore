@@ -4,3 +4,6 @@
 *gz
 *aux
 *pdf
+
+node_modules*
+.envfile*
