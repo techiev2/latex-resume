@@ -84,7 +84,7 @@
           .then(response => {
             generatedPDF.setAttribute('src', response.response);
           })
-          .catch(console.error)
+          .catch(alert('Error generating PDF'))
       }
     }
   </script>
